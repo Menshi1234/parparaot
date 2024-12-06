@@ -5,23 +5,8 @@
                 Tanach in Gematria's
             </strong>
         </H1>
-    </head>
-    <body>
-    <H3>
-        what is the objective?
-    </H3>
-    <p>
-        The goal of this website is for you to give a word or phrase in hebrew 
-        and the computer would show you all of the words or phrases in the tanach
-        that has the same gematria as what you entered.
-    </p>
-    
-    <H3>
-        Choose your word and text:
-    </H3>
-       
-    
-    <script>
+        
+         <script>
         //This function turns any hebrew word into a gamatria number
         function countGamatria(user_word){
         let array = ["א","ב","ג","ד","ה","ו","ז","ח","ט","י","כ","ל","מ","נ","ס","ע","פ","צ","ק","ר","ש","ת"];
@@ -42,21 +27,22 @@
     }
      // This function prompt the user to enter a text they want
         function countText(user_text, gematria){
+            let output = document.getElementById("found");
             let j = 0;
             let phrase = "";
             let originalPhrase = "";
             let originalGematria = gematria;
             let words2 = user_text.split(" ");
             for(let i = 0; i < words2.length; i++){
-                document.write("words2: "+words2+"<BR>");
+                // document.write("words2: "+words2+"<BR>");
                 
                 for(const word of words2){
                     if(gematria >= countGamatria(word)){
                         gematria -= countGamatria(word);
                         phrase += word;
-                        document.write("phrase is " + phrase);
+                        // document.write("phrase is " + phrase);
                         if(gematria == 0){
-                            document.write("Phrase is "+phrase+"<BR>");
+                            // document.write("Phrase is "+phrase+"<BR>");
                             phrase += ", ";
                             // phrase = originalPhrase;
                             gematria = originalGematria;
@@ -70,15 +56,44 @@
                 
             words2 = words2.slice(1);
             }
+            output.value+=phrase+"\nALL DONE!";
         }
         
-
-        let user_word = prompt("What word/phrase in hebrew are you looking for it's gamatria?");
-        let wordGematria = countGamatria(user_word);
+        function doCountText() {
+            let user_word = document.getElementById("word").value;
+            let wordGematria = countGamatria(user_word);
         
-        let user_text = prompt("What text do you want to choose?")
-        countText(user_text, wordGematria);
+            let user_text =  document.getElementById("text").value;
+            countText(user_text, wordGematria);
+            }
 
         </script>
+    </head>
+    <body>
+    <H3>
+        What is the objective?
+    </H3>
+    <p>
+        The goal of this website is for you to give a word or phrase in hebrew 
+        and the computer would show you all of the words or phrases in the tanach
+        that has the same gematria as what you entered.
+    </p>
+    
+    <HR></HR>
+    <H3>
+        What word/phrase in hebrew are you looking for it's gamatria?
+    </H3>
+    <INPUT ID="word"></INPUT>
+        <H3>
+        What text do you want to choose?
+    </H3>
+      <INPUT ID="text" SIZE=50></INPUT>
+      
+      <INPUT TYPE="BUTTON" VALUE="Find Gematria Words" ONCLICK="return doCountText();"></INPUT>
+    <HR></HR>
+    <H3>Found:</H3>
+    <TEXTAREA ID="found" COLS=50 ROWS=15></TEXTAREA>
+    
+  
     </body>
 </html>
