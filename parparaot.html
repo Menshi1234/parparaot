@@ -22,6 +22,7 @@
                     gamatria += value;
                 }
             }
+            console.log("I am : "+gamatria);
         }
         return(gamatria);
     }
@@ -33,28 +34,25 @@
             let originalPhrase = "";
             let originalGematria = gematria;
             let words2 = user_text.split(" ");
-            for(let i = 0; i < words2.length; i++){
-                // document.write("words2: "+words2+"<BR>");
+            for(let i = 0; i < words2.length; i++) {
                 
                 for(const word of words2){
                     if(gematria >= countGamatria(word)){
                         gematria -= countGamatria(word);
-                        phrase += word;
-                        // document.write("phrase is " + phrase);
+                        phrase += word + " ("+countGamatria(word)+")";
                         if(gematria == 0){
-                            // document.write("Phrase is "+phrase+"<BR>");
                             phrase += ", ";
-                            // phrase = originalPhrase;
                             gematria = originalGematria;
                             break;
                             }
                         }
                     else{
                         gematria = originalGematria;
+                        break;
                     }
                 }
                 
-            words2 = words2.slice(1);
+                words2 = words2.slice(1);
             }
             output.value+=phrase+"\nALL DONE!";
         }
