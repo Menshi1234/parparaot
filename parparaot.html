@@ -1,12 +1,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <H1>
-        <strong>
-            Tanach in Gematrias (Sample)
-        </strong>
-    </H1>
-
+    <title>Tanach in Numbers</title>
     <script>
         //This function turns any hebrew word into a gamatria number
         function countGamatria(user_word) {
@@ -89,15 +84,21 @@
         }
 
         function doCountText() {
+            document.body.style.cursor = "wait";
+
             let user_word = document.getElementById("word").value;
             let wordGematria = countGamatria(user_word);
             document.getElementById("found").value = ""; // initialize
 
             let user_text = document.getElementById("text").value;
             countText(user_text, wordGematria);
+
+            document.body.style.cursor = "default";
         }
 
         async function loadFile(selectElement) {
+            document.body.style.cursor = "wait";
+
             const fileName = selectElement.value; // Get the selected file name
             if (fileName) {
                 try {
@@ -112,11 +113,19 @@
                     document.getElementById('output').innerText = "Error loading file.";
                 }
             }
+
+            document.body.style.cursor = "default";
         }
 
     </script>
+    <style src="parparaot.css"></style>
 </head>
 <body>
+<H1>
+    <strong>
+        Tanach in Gematria - פרפראות לתורה
+    </strong>
+</H1>
 <H3>
     What is the objective?
 </H3>
@@ -128,28 +137,31 @@
 
 <HR></HR>
 <H3>
-    What word/phrase in hebrew are you looking for it's gamatria?
+What word/phrase in hebrew are you looking for it's gamatria?
 </H3>
-<INPUT ID="word"></INPUT>
+<INPUT ID="word""></INPUT>
 <H3>
     Choose an underlying text?
 </H3>
-<INPUT ID="text" SIZE=50></INPUT>
 <label for="fileSelect">Existing source:</label>
-<select id="fileSelect" onchange="loadFile(this)">
+<select id="fileSelect" onchange="return loadFile(this);">
     <option value="">-- Select a file --</option>
     <option value="Bereshit.txt">בראשית</option>
-    <option value="Shemot.txt">שמות</option>
+    <option value="Shmot.txt">שמות</option>
     <option value="Vayikra.txt">ויקרא</option>
     <option value="Bamidbar.txt">במדבר</option>
-    <option value="Devarim.txt">דברים</option>
+    <option value="Dvarim.txt">דברים</option>
 </select>
+<BR>
 
+<TEXTAREA ID="text" COLS="60" ROWS="5"></TEXTAREA>
+
+<BR>
 <INPUT TYPE="BUTTON" VALUE="Find Gematria Words" ONCLICK="return doCountText();"></INPUT>
+
 <HR></HR>
 <H3>Found:</H3>
-<TEXTAREA ID="found" COLS=80 ROWS=15></TEXTAREA>
-
+<TEXTAREA ID="found" COLS="60" ROWS="15"></TEXTAREA>
 
 </body>
 </html>
