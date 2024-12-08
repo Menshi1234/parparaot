@@ -69,7 +69,7 @@
             const fileName = selectElement.value; // Get the selected file name
             if (fileName) {
                 try {
-                    const response = await fetch("src/"+fileName); // Fetch the file
+                    const response = await fetch("Texts/"+fileName); // Fetch the file
                     if (!response.ok) {
                         throw new Error(`HTTP error! Status: ${response.status}`);
                     }
