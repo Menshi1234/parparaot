@@ -1,1 +1,1 @@
-AI project for school
+Ai project for school
