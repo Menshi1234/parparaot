@@ -1,1 +1,1 @@
-This is Menshi's AI project.
+Ai project for school
