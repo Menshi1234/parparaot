@@ -44,13 +44,6 @@
             let gamatria = 0;
             for (const letter of user_word) {
                 gamatria += map.get(letter);
-                // for(let i = 0; i<array.length; i++){
-                //     element = array[i];
-                //     value = array2[i];
-                //     if(letter === element){
-                //         gamatria += value;
-                //     }
-                // }
             }
 
             //console.log(user_word + " --> "+gamatria);
@@ -59,12 +52,14 @@
 
         // This function prompt the user to enter a text they want
         function countText(user_text, gematria) {
+            const map2 = new Map();
             let output = document.getElementById("found");
             let j = 0;
             let phrase = "";
             let originalPhrase = "";
             let originalGematria = gematria;
             let words2 = user_text.split(" ");
+            let x = 0;
             for (let i = 0; i < words2.length; i++) {
                 let tempPhrase = ""; // the phrase I am constructing right now
 
@@ -74,7 +69,10 @@
                         gematria -= wordGematria;
                         tempPhrase += word + " (" + wordGematria + ") ";
                         if (gematria == 0) {
+                            if(!map2.get(tempPhrase)){
+                                map2.set(tempPhrase, x);
                             phrase += tempPhrase + "\n"; // record the temporary phrase
+                            }
                             gematria = originalGematria;
                             break;
                         }
@@ -113,7 +111,9 @@
                 }
             }
         }
-
+            function createPrompt(bestWords){
+                let prompt = "Can you write me a Dvar torah, using the fact that " + bestWords + "" ;
+            }
     </script>
 </head>
 <body>
@@ -144,12 +144,17 @@
     <option value="Bamidbar.txt">במדבר</option>
     <option value="Devarim.txt">דברים</option>
 </select>
-
-<INPUT TYPE="BUTTON" VALUE="Find Gematria Words" ONCLICK="return doCountText();"></INPUT>
 <HR></HR>
 <H3>Found:</H3>
-<TEXTAREA ID="found" COLS=80 ROWS=15></TEXTAREA>
-
-
+<INPUT TYPE="BUTTON" VALUE="Find Gematria Words" ONCLICK="return doCountText();"></INPUT>
+<BR></br>
+    <TEXTAREA ID="found" COLS=80 ROWS=15></TEXTAREA>
+    <BR></BR>
+<center>
+    <H3>Your Dvar Torah:</H3>
+    <input Type = "BUTTON" VALUE="Generate Dvar torah" ONCLICK="return createPrompt();"></INPUT>
+    <BR></BR>
+    <TEXTAREA ID="Dvar" COLS="100"  ROWS="50"></TEXTAREA>
+</CENTER>
 </body>
 </html>
