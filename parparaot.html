@@ -3,85 +3,10 @@
     <meta charset="UTF-8">
     <title>Tanach in Numbers</title>
 
+
+    <link rel="stylesheet" href="Styles/parparaot.css"></link>
+    <script src="Scripts/gematria.js"></script>
     <script>
-        //This function turns any hebrew word into a gamatria number
-        function countGamatria(user_word) {
-            const map = new Map();
-            map.set("א", 1);
-            map.set("ב", 2);
-            map.set("ג",3);
-            map.set("ד", 4);
-            map.set("ה", 5);
-            map.set("ו", 6);
-            map.set("ז", 7);
-            map.set("ח", 8);
-            map.set("ט", 9);
-            map.set("י", 10);
-            map.set("כ", 20);
-            map.set("ך",20);
-            map.set("ל", 30);
-            map.set("מ", 40);
-            map.set("ם", 40);
-            map.set("נ", 50);
-            map.set("ן",50);
-            map.set("ס",60);
-            map.set("ע", 70);
-            map.set("פ", 80);
-            map.set("צ",90);
-            map.set("ץ", 90);
-            map.set("ק", 100);
-            map.set("ר", 200);
-            map.set("ש", 300);
-            map.set("ת", 400);
-                //let array = ["א", "ב", "ג", "ד", "ה", "ו", "ז", "ח", "ט", "י", "כ", "ל", "מ", "נ", "ס", "ע", "פ", "צ", "ק", "ר", "ש", "ת"];
-                //let array2 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 200, 300, 400]
-                //let element = 0;
-            let value = 0;
-            let gamatria = 0;
-            for (const letter of user_word) {
-                gamatria += map.get(letter);
-            }
-
-            //console.log(user_word + " --> "+gamatria);
-            return (gamatria);
-        }
-
-        // This function prompt the user to enter a text they want
-        function countText(user_text, gematria) {
-            const map2 = new Map();
-            let output = document.getElementById("found");
-            let j = 0;
-            let phrase = "";
-            let originalPhrase = "";
-            let originalGematria = gematria;
-            let words2 = user_text.split(" ");
-            let x = 0;
-            for (let i = 0; i < words2.length; i++) {
-                let tempPhrase = ""; // the phrase I am constructing right now
-
-                for (const word of words2) {
-                    if (gematria >= countGamatria(word)) {
-                        let wordGematria = countGamatria(word);
-                        gematria -= wordGematria;
-                        tempPhrase += word + " (" + wordGematria + ") ";
-                        if (gematria == 0) {
-                            if(!map2.has(tempPhrase)){
-                                map2.set(tempPhrase, x);
-                            phrase += tempPhrase + "\n"; // record the temporary phrase
-                            }
-                            gematria = originalGematria;
-                            break;
-                        }
-                    } else {
-                        gematria = originalGematria;
-                        break;
-                    }
-                }
-                words2 = words2.slice(1);
-            }
-            output.value += phrase + "\nALL DONE!";
-        }
-
         function doCountText() {
             document.body.style.cursor = "wait";
 
@@ -115,11 +40,30 @@
 
             document.body.style.cursor = "default";
         }
-            function createPrompt(bestWords){
-                let prompt = "Can you write me a Dvar torah, using the fact that " + bestWords + "" ;
+
+        function createPrompt(bestWords) {
+            // the user's word or phrase
+            let user_word = document.getElementById("word").value;
+
+            // get a random Gemmatria equivalent
+            const options = document.getElementById("found").value;
+            const lines = options.split("\n"); // the number of gematriot found
+            const filteredLines = lines.filter(line=>line.trim() != "");
+            if (filteredLines===0) { // no gematria options
+                alert("No gematria equivalents were found!  Please 'Find Gematria Words' first.");
+                return;
             }
+            const randomIndex = Math.floor(Math.random() * filteredLines.length); // random choice
+            const randomGematria = filteredLines[randomIndex]; // the line itself
+
+            //alert("Creating a Dvar Torah connecting "+user_word+ " with "+ randomGematria);
+
+            let prompt = "Please provide a Dvar Torah using the fact that" +
+                "the phrase "+user_word+" has the same gematria as  " + randomGematria;
+            window.open("https://agile.bu.edu/ec327_scripts/gemini.pl?key=31415&prompt="
+                +(prompt));
+        }
     </script>
-    <style src="parparaot.css"></style>
 </head>
 <body>
 <H1>
@@ -138,7 +82,7 @@
 
 <HR></HR>
 <H3>
-What word/phrase in hebrew are you looking for it's gamatria?
+    What word/phrase in hebrew are you looking for it's gamatria?
 </H3>
 <INPUT ID="word"></INPUT>
 <H3>
@@ -162,15 +106,9 @@ What word/phrase in hebrew are you looking for it's gamatria?
 
 <HR></HR>
 <H3>Found:</H3>
-<INPUT TYPE="BUTTON" VALUE="Find Gematria Words" ONCLICK="return doCountText();"></INPUT>
 <BR></br>
-    <TEXTAREA ID="found" COLS=80 ROWS=15></TEXTAREA>
-    <BR></BR>
-<center>
-    <H3>Your Dvar Torah:</H3>
-    <input Type = "BUTTON" VALUE="Generate Dvar torah" ONCLICK="return createPrompt();"></INPUT>
-    <BR></BR>
-    <TEXTAREA ID="Dvar" COLS="100"  ROWS="50"></TEXTAREA>
-</CENTER>
+<TEXTAREA ID="found" COLS=80 ROWS=15></TEXTAREA>
+<BR></BR>
+<input Type="BUTTON" VALUE="Generate Dvar Torah" ONCLICK="return createPrompt();"></INPUT>
 </body>
 </html>
