@@ -65,7 +65,7 @@
                         gematria -= wordGematria;
                         tempPhrase += word + " (" + wordGematria + ") ";
                         if (gematria == 0) {
-                            if(!map2.get(tempPhrase)){
+                            if(!map2.has(tempPhrase)){
                                 map2.set(tempPhrase, x);
                             phrase += tempPhrase + "\n"; // record the temporary phrase
                             }
@@ -162,7 +162,15 @@ What word/phrase in hebrew are you looking for it's gamatria?
 
 <HR></HR>
 <H3>Found:</H3>
-<TEXTAREA ID="found" COLS="60" ROWS="15"></TEXTAREA>
-
+<INPUT TYPE="BUTTON" VALUE="Find Gematria Words" ONCLICK="return doCountText();"></INPUT>
+<BR></br>
+    <TEXTAREA ID="found" COLS=80 ROWS=15></TEXTAREA>
+    <BR></BR>
+<center>
+    <H3>Your Dvar Torah:</H3>
+    <input Type = "BUTTON" VALUE="Generate Dvar torah" ONCLICK="return createPrompt();"></INPUT>
+    <BR></BR>
+    <TEXTAREA ID="Dvar" COLS="100"  ROWS="50"></TEXTAREA>
+</CENTER>
 </body>
 </html>
