@@ -3,4 +3,7 @@ textarea#found {
     width: 50%;
     height: 20%;
     font-size: 16px;
+    Body{
+        background-color: green;
+    }
 }
