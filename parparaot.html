@@ -43,7 +43,7 @@
             // the user's word or phrase
             let user_word = document.getElementById("word").value;
 
-            // get a random Gemmatria equivalent
+            // get all Gemmatria equivalents
             const options = document.getElementById("found").value;
             const lines = options.split("\n"); // the number of gematriot found
             const filteredLines = lines.filter(line=>line.trim() != "");
@@ -53,8 +53,8 @@
             }
             //const randomIndex = Math.floor(Math.random() * filteredLines.length); // random choice
             const choseGematria = "";
-            for(let x =0; x<filteredLines.length){
-                filteredLines[x]; // the line itself
+            for(let x = 0; x<filteredLines.length; x++){
+                choseGematria += filteredLines["x"]; // the line itself
             }
 
             alert("Creating a Dvar Torah connecting "+user_word+ " with "+ choseGematria);
