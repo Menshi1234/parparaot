@@ -3,13 +3,11 @@
     <meta charset="UTF-8">
     <title>Tanach in Numbers</title>
 
-
     <link rel="stylesheet" href="Styles/parparaot.css"></link>
     <script src="Scripts/gematria.js"></script>
     <script>
         function doCountText() {
             document.body.style.cursor = "wait";
-
             let user_word = document.getElementById("word").value;
             let wordGematria = countGamatria(user_word);
             document.getElementById("found").value = ""; // initialize
@@ -53,13 +51,16 @@
                 alert("No gematria equivalents were found!  Please 'Find Gematria Words' first.");
                 return;
             }
-            const randomIndex = Math.floor(Math.random() * filteredLines.length); // random choice
-            const randomGematria = filteredLines[randomIndex]; // the line itself
+            //const randomIndex = Math.floor(Math.random() * filteredLines.length); // random choice
+            const choseGematria = "";
+            for(let x =0; x<filteredLines.length){
+                filteredLines[x]; // the line itself
+            }
 
-            //alert("Creating a Dvar Torah connecting "+user_word+ " with "+ randomGematria);
+            alert("Creating a Dvar Torah connecting "+user_word+ " with "+ choseGematria);
 
             let prompt = "Please provide a Dvar Torah using the fact that" +
-                "the phrase "+user_word+" has the same gematria as  " + randomGematria;
+                "the phrase "+user_word+" has the same gematria as  " + choseGematria;
             window.open("https://agile.bu.edu/ec327_scripts/gemini.pl?key=31415&prompt="
                 +(prompt));
         }
@@ -71,15 +72,20 @@
         Tanach in Gematria - פרפראות לתורה
     </strong>
 </H1>
-<H3>
-    What is the objective?
-</H3>
-<p>
-    The goal of this website is for you to give a word or phrase in hebrew
-    and the computer would show you all of the words or phrases in the tanach
-    that has the same gematria as what you entered.
-</p>
+<center>
+<H1>
+    What does this website do?
+</H1>
 
+<p>
+    This website asks you to give a word or phrase in hebrew and the computer would show you all<br></br>
+    of the words or phrases in the tanach that have the same gematria as what you entered. After it finds that,<br></br>
+    it will generate for you a Dvar torah, using the best word that has the same gematria as the word you entered.<br></br>
+</p>
+<img src="https://files.oaiusercontent.com/file-4cRqfWLmUS9oM6Pri9yU1k?se=2024-12-11T01%3A16%3A33Z&sp=r&sv=2024-08-04&sr=b&rscc=max-age%3D604800%2C%20immutable%2C%20private&rscd=attachment%3B%20filename%3D84467a8c-2e6c-4430-8284-9c3e78c7fa19.webp&sig=aYrfzOqeHk7mUUe5YE72gzJmzOJVpzSAjIiJbsF5cZY%3D"
+     width="300"
+     height=300"
+</center
 <HR></HR>
 <H3>
     What word/phrase in hebrew are you looking for it's gamatria?
@@ -98,17 +104,24 @@
     <option value="Dvarim.txt">דברים</option>
 </select>
 <BR>
-
 <TEXTAREA ID="text" COLS="60" ROWS="5"></TEXTAREA>
-
+<br></br>
+<img src="https://files.oaiusercontent.com/file-VFDDu29sFZnpKTRCuG4F3j?se=2024-12-11T01%3A25%3A49Z&sp=r&sv=2024-08-04&sr=b&rscc=max-age%3D604800%2C%20immutable%2C%20private&rscd=attachment%3B%20filename%3Dd422034b-1f03-48f3-9a99-c75f49a8580c.webp&sig=/CWfRuWrF1lpiur05a3GDGznOUP%2B1USlb7rBxpuemJw%3D"
+    width="300"
+    height="300"
+/>
 <BR>
-<INPUT TYPE="BUTTON" VALUE="Find Gematria Words" ONCLICK="return doCountText();"></INPUT>
-
 <HR></HR>
 <H3>Found:</H3>
 <BR></br>
-<TEXTAREA ID="found" COLS=80 ROWS=15></TEXTAREA>
-<BR></BR>
+<INPUT TYPE="BUTTON" VALUE="Find Gematria Words" ONCLICK="return doCountText();"></INPUT>
+<br></br>
+<TEXTAREA ID="found" cols= 60 rows= 10></TEXTAREA>
+<br></br>
+<center>
 <input Type="BUTTON" VALUE="Generate Dvar Torah" ONCLICK="return createPrompt();"></INPUT>
+<br></br>
+<TEXTAREA id="Dvar_Torah" cols=60 rows="30"></TEXTAREA>
+</center>
 </body>
 </html>
