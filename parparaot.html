@@ -52,16 +52,18 @@
                 return;
             }
             //const randomIndex = Math.floor(Math.random() * filteredLines.length); // random choice
-            const choseGematria = "";
-            for(let x = 0; x<filteredLines.length; x++){
-                choseGematria += filteredLines["x"]; // the line itself
+            //const randomIndex = Math.floor(Math.random() * filteredLines.length); // random choice
+            choseGematria = filteredLines[0];
+            for(let x = 1; x<filteredLines.length-1; x++){
+                choseGematria += ", "+filteredLines[x]; // the line itself
             }
 
-            alert("Creating a Dvar Torah connecting "+user_word+ " with "+ choseGematria);
+            //alert("Creating a Dvar Torah connecting "+user_word+ " with "+ choseGematria);
 
             let prompt = "Please provide a Dvar Torah using the fact that" +
-                "the phrase "+user_word+" has the same gematria as  " + choseGematria;
-            window.open("https://agile.bu.edu/ec327_scripts/gemini.pl?key=31415&prompt="
+                "the phrase "+user_word+" has the same gematria as the following phrases " + choseGematria+
+                ".  Please use whichever of these phrases that suit your needs.";
+            window.open("https://ipsit.bu.edu/generic/gemini.pl?key=31415&prompt="
                 +(prompt));
         }
     </script>
@@ -73,6 +75,10 @@
     </strong>
 </H1>
 <center>
+    <img src="Pictures/Dvar.png"
+         width="300"
+         height=300"
+    >
 <H1>
     What does this website do?
 </H1>
@@ -82,10 +88,8 @@
     of the words or phrases in the tanach that have the same gematria as what you entered. After it finds that,<br></br>
     it will generate for you a Dvar torah, using the best word that has the same gematria as the word you entered.<br></br>
 </p>
-<img src="Pictures/Dvar.png"
-     width="300"
-     height=300"
-</center
+
+</center>
 <HR></HR>
 <H3>
     What word/phrase in hebrew are you looking for it's gamatria?
@@ -120,8 +124,6 @@
 <br></br>
 <center>
 <input Type="BUTTON" VALUE="Generate Dvar Torah" ONCLICK="return createPrompt();"></INPUT>
-<br></br>
-<TEXTAREA id="Dvar_Torah" cols=60 rows="30"></TEXTAREA>
 </center>
 </body>
 </html>
