@@ -5,125 +5,82 @@
 
     <link rel="stylesheet" href="Styles/parparaot.css"></link>
     <script src="Scripts/gematria.js"></script>
-    <script>
-        function doCountText() {
-            document.body.style.cursor = "wait";
-            let user_word = document.getElementById("word").value;
-            let wordGematria = countGamatria(user_word);
-            document.getElementById("found").value = ""; // initialize
-
-            let user_text = document.getElementById("text").value;
-            countText(user_text, wordGematria);
-
-            document.body.style.cursor = "default";
-        }
-
-        async function loadFile(selectElement) {
-            document.body.style.cursor = "wait";
-
-            const fileName = selectElement.value; // Get the selected file name
-            if (fileName) {
-                try {
-                    const response = await fetch("Texts/" + fileName); // Fetch the file
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! Status: ${response.status}`);
-                    }
-                    // populate the user_text box with the contents of the file
-                    document.getElementById("text").value = await response.text(); // Read file content as a string
-                } catch (error) {
-                    console.error('Error loading file:', error);
-                    document.getElementById('output').innerText = "Error loading file.";
-                }
-            }
-
-            document.body.style.cursor = "default";
-        }
-
-        function createPrompt(bestWords) {
-            // the user's word or phrase
-            let user_word = document.getElementById("word").value;
-
-            // get all Gemmatria equivalents
-            const options = document.getElementById("found").value;
-            const lines = options.split("\n"); // the number of gematriot found
-            const filteredLines = lines.filter(line=>line.trim() != "");
-            if (filteredLines===0) { // no gematria options
-                alert("No gematria equivalents were found!  Please 'Find Gematria Words' first.");
-                return;
-            }
-            //const randomIndex = Math.floor(Math.random() * filteredLines.length); // random choice
-            //const randomIndex = Math.floor(Math.random() * filteredLines.length); // random choice
-            choseGematria = filteredLines[0];
-            for(let x = 1; x<filteredLines.length-1; x++){
-                choseGematria += ", "+filteredLines[x]; // the line itself
-            }
-
-            //alert("Creating a Dvar Torah connecting "+user_word+ " with "+ choseGematria);
-
-            let prompt = "Please provide a Dvar Torah using the fact that" +
-                "the phrase "+user_word+" has the same gematria as the following phrases " + choseGematria+
-                ".  Please use whichever of these phrases that suit your needs.";
-            window.open("https://ipsit.bu.edu/generic/gemini.pl?key=31415&prompt="
-                +(prompt));
-        }
-    </script>
 </head>
 <body>
-<H1>
-    <strong>
-        Tanach in Gematria - פרפראות לתורה
-    </strong>
-</H1>
-<center>
-    <img src="Pictures/Dvar.png"
-         width="300"
-         height=300"
-    >
-<H1>
-    What does this website do?
-</H1>
+<div id="title">
+    <table>
+        <tr>
 
-<p>
-    This website asks you to give a word or phrase in hebrew and the computer would show you all<br></br>
-    of the words or phrases in the tanach that have the same gematria as what you entered. After it finds that,<br></br>
-    it will generate for you a Dvar torah, using the best word that has the same gematria as the word you entered.<br></br>
-</p>
+        <td>
+    <img src="Pictures/Dvar.png" width="200"" >
+        </td>
 
-</center>
+            <td width="20px">
+
+            </td>
+
+        <td>
+<h1>Tanach in numbers  - פרפראות לתורה</h1>
+<i>To use:</i>
+            <ol>
+<li> Provide a word or phrase <i>in Hebrew</i>.
+<li> Select (or enter) an underlying text to search for phrases with the same gemmatria value.</li>
+<li> Click on "Generate Dvar Torah" to create an appropriate speech. </li>
+            </ol>
+        </td>
+        </tr>
+    </table>
+</div>
+
 <HR></HR>
-<H3>
-    What word/phrase in hebrew are you looking for it's gamatria?
-</H3>
+<H2>
+    1.  Provide a word or phrase <i>in Hebrew</i>:
+</H2>
 <INPUT ID="word"></INPUT>
-<H3>
-    Choose an underlying text?
-</H3>
-<label for="fileSelect">Existing source:</label>
-<select id="fileSelect" onchange="return loadFile(this);">
-    <option value="">-- Select a file --</option>
-    <option value="Bereshit.txt">בראשית</option>
-    <option value="Shmot.txt">שמות</option>
-    <option value="Vayikra.txt">ויקרא</option>
-    <option value="Bamidbar.txt">במדבר</option>
-    <option value="Dvarim.txt">דברים</option>
-</select>
-<BR>
-<TEXTAREA ID="text" COLS="60" ROWS="5"></TEXTAREA>
-<br></br>
-<img src="Pictures/Letters.png"
-    width="300"
-    height="300"
-/>
-<BR>
-<HR></HR>
-<H3>Found:</H3>
-<BR></br>
-<INPUT TYPE="BUTTON" VALUE="Find Gematria Words" ONCLICK="return doCountText();"></INPUT>
-<br></br>
-<TEXTAREA ID="found" cols= 60 rows= 10></TEXTAREA>
-<br></br>
+<hr>
+<H2>
+    2.  Choose an underlying text:
+</H2>
+<div id="loader"> </div>
+<table ID="main">
+    <tr>
+        <th>Existing source:</th>
+        <th>Found:</th>
+        </tr>
+    <tr>
+        <td align="right">
+            <select id="fileSelect" onchange="return loadFile(this);">
+                <option value="">-- Select a file --</option>
+                <option value="Bereshit.txt">בראשית</option>
+                <option value="Shmot.txt">שמות</option>
+                <option value="Vayikra.txt">ויקרא</option>
+                <option value="Bamidbar.txt">במדבר</option>
+                <option value="Dvarim.txt">דברים</option>
+                <option value="Torah.txt">תורה</option>
+                <option value="Neviim.txt">נביאים</option>
+                <option value="Ktuvim.txt">כתובים</option>
+            </select>
+
+            <BR>
+
+            <TEXTAREA ID="text" COLS="60" ROWS="10"></TEXTAREA>
+
+        </td>
+
+<td align="right">
+<TEXTAREA ID="found"></TEXTAREA>
+</td>
+    </tr>
+    <tr><td colspan="2" align="center"><INPUT TYPE="BUTTON" VALUE="Find Gematria Words" ONCLICK="return doCountText();"></INPUT></td></tr>
+</table>
+<hr>
+
+<h2>3.  Generate!</h2>
 <center>
 <input Type="BUTTON" VALUE="Generate Dvar Torah" ONCLICK="return createPrompt();"></INPUT>
 </center>
+
+<hr>
+<i>Tanach texts courtesy of https://tanach.us</i>
 </body>
 </html>

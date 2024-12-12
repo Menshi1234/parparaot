@@ -1,3 +1,6 @@
+// constants
+const MAX_PROMPT = 500; /** The maximum length of a prompt. */
+
 //This function turns any hebrew word into a gamatria number
 function countGamatria(user_word) {
     const map = new Map();
@@ -45,7 +48,6 @@ function countText(user_text, gematria) {
     const map2 = new Map();
     let output = document.getElementById("found");
     let j = 0;
-    let phrase = "";
     let originalPhrase = "";
     let originalGematria = gematria;
     let words2 = user_text.split(" ");
@@ -61,7 +63,7 @@ function countText(user_text, gematria) {
                 if (gematria == 0) {
                     if(!map2.has(tempPhrase)){
                         map2.set(tempPhrase, x);
-                        phrase += tempPhrase + "\n"; // record the temporary phrase
+                        output.value += tempPhrase + "\n"; // record the temporary phrase
                     }
                     gematria = originalGematria;
                     break;
@@ -73,5 +75,67 @@ function countText(user_text, gematria) {
         }
         words2 = words2.slice(1);
     }
-    output.value += phrase + "\nALL DONE!";
+}
+
+function doCountText() {
+    document.getElementById("loader").style.display = "block"; // show the loader
+
+    let user_word = document.getElementById("word").value;
+    let wordGematria = countGamatria(user_word);
+    document.getElementById("found").value = ""; // initialize
+
+    let user_text = document.getElementById("text").value;
+    countText(user_text, wordGematria);
+
+    document.getElementById("loader").style.display = "none"; // hide the loader
+}
+
+async function loadFile(selectElement) {
+    document.getElementById("loader").style.display = "block"; // show the loader
+
+    const fileName = selectElement.value; // Get the selected file name
+    if (fileName) {
+        try {
+            const response = await fetch("Texts/" + fileName); // Fetch the file
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            // populate the user_text box with the contents of the file
+            document.getElementById("text").value = await response.text(); // Read file content as a string
+        } catch (error) {
+            console.error('Error loading file:', error);
+            document.getElementById('output').innerText = "Error loading file.";
+        }
+    }
+
+    document.getElementById("loader").style.display = "none"; // hide the loader
+}
+
+function createPrompt(bestWords) {
+    // the user's word or phrase
+    let user_word = document.getElementById("word").value;
+
+    // get all Gemmatria equivalents
+    const options = document.getElementById("found").value;
+    const lines = options.split("\n"); // the number of gematriot found
+    const filteredLines = lines.filter(line=>line.trim() != "");
+    if (filteredLines===0) { // no gematria options
+        alert("No gematria equivalents were found!  Please 'Find Gematria Words' first.");
+        return;
+    }
+    //const randomIndex = Math.floor(Math.random() * filteredLines.length); // random choice
+    //const randomIndex = Math.floor(Math.random() * filteredLines.length); // random choice
+    choseGematria = filteredLines[0];
+    for(let x = 1; x<filteredLines.length-1; x++){
+        choseGematria += ", "+filteredLines[x]; // the line itself
+    }
+
+    //alert("Creating a Dvar Torah connecting "+user_word+ " with "+ choseGematria);
+
+    let prompt = "Please provide a Dvar Torah using the fact that" +
+        "the phrase "+user_word+" has the same gematria as the following phrases " + choseGematria+
+        ".  Please use whichever of these phrases that suit your needs.";
+    prompt = prompt.substring(0,MAX_PROMPT);
+    window.open("https://ipsit.bu.edu/generic/gemini.pl?key=31415&prompt="
+        +(prompt));
 }
