@@ -4,6 +4,7 @@ const MAX_PROMPT = 500; /** The maximum length of a prompt. */
 //This function turns any hebrew word into a gamatria number
 function countGamatria(user_word) {
     const map = new Map();
+    map.set(" ", 0);
     map.set("א", 1);
     map.set("ב", 2);
     map.set("ג",3);
@@ -24,6 +25,7 @@ function countGamatria(user_word) {
     map.set("ס",60);
     map.set("ע", 70);
     map.set("פ", 80);
+    map.set("ף", 80);
     map.set("צ",90);
     map.set("ץ", 90);
     map.set("ק", 100);
