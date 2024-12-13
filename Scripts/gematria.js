@@ -136,19 +136,6 @@ function createPrompt(bestWords) {
     let user_word = document.getElementById("word").value;
 
     // get all Gemmatria equivalents
-    // const options = document.getElementById("found").value;
-    // const lines = options.split("\n"); // the number of gematriot found
-    // const filteredLines = lines.filter(line=>line.trim() != "");
-    // if (filteredLines===0) { // no gematria options
-    //     alert("No gematria equivalents were found!  Please 'Find Gematria Words' first.");
-    //     return;
-    // }
-    // //const randomIndex = Math.floor(Math.random() * filteredLines.length); // random choice
-    // //const randomIndex = Math.floor(Math.random() * filteredLines.length); // random choice
-    // choseGematria = filteredLines[0];
-    // for(let x = 1; x<filteredLines.length-1; x++){
-    //     choseGematria += ", "+filteredLines[x]; // the line itself
-    // }
     let choseGematria="";
     const foundItems = document.getElementById("found");
     if (foundItems.length==0) {
@@ -161,10 +148,11 @@ function createPrompt(bestWords) {
         }
     }
 
-    let prompt = "Please provide a Dvar Torah using the fact that" +
+    let thePrompt = "Please provide a Dvar Torah using the fact that" +
         "the phrase "+user_word+" has the same gematria as the following phrases " + choseGematria+
         ".  Please use whichever of these phrases that suit your needs.";
-    prompt = prompt.substring(0,MAX_PROMPT);
-    window.open("https://ipsit.bu.edu/generic/gemini.pl?key=31415&prompt="
-        +(prompt));
+    thePrompt = thePrompt.substring(0,MAX_PROMPT);
+    document.getElementById("prompt").value=thePrompt;
+    // window.open("https://ipsit.bu.edu/generic/gemini.pl?key=31415&prompt="
+    //     +(prompt));
 }

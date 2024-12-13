@@ -8,6 +8,18 @@ html {
     background-color: black;
 }
 
+#title.left-image {
+    horiz-align: left;
+}
+
+#title.right-image {
+    hoiz-align: right;
+}
+
+#title table {
+    padding: 5px;
+    width: 100%;
+}
 
 #title td {
     vertical-align: top;
@@ -25,9 +37,18 @@ html {
     border: 1px solid black;
 }
 
-#fileSelect {
+select#fileSelect {
     color: red;
-    horiz align: right;
+    horiz–align: right;
+}
+
+span.emphasis {
+    color: bisque;
+    font-weight: bold;
+}
+
+input {
+    text-align: right;
 }
 
 h2, h3 {
