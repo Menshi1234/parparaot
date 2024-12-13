@@ -8,6 +8,18 @@ html {
     background-color: black;
 }
 
+#title.left-image {
+    horiz-align: left;
+}
+
+#title.right-image {
+    horiz-align: right;
+}
+
+#title table {
+    padding: 5px;
+    width: 100%;
+}
 
 #title td {
     vertical-align: top;
@@ -25,9 +37,18 @@ html {
     border: 1px solid black;
 }
 
-#fileSelect {
+select#fileSelect {
     color: red;
-    horiz-align: right;
+    align: right;
+}
+
+span.emphasis {
+    color: bisque;
+    font-weight: bold;
+}
+
+input {
+    text-align: right;
 }
 
 h2, h3 {
@@ -36,8 +57,7 @@ h2, h3 {
 
 /* table */
 table {
-    border: 1px solid black;
-    border-style: groove;
+    border: 1px groove black;
     width: 80%;
     height: 5%;
     horiz-align: center;
@@ -92,8 +112,8 @@ textarea#text {
 }
 
 @-webkit-keyframes spin {
-    0% { -webkit-transform: rotate(0deg); }
-    100% { -webkit-transform: rotate(360deg); }
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
 @keyframes spin {

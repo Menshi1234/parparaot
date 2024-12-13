@@ -12,23 +12,21 @@
         <tr>
 
         <td>
-    <img src="Pictures/Dvar.png" width="200"" >
-    <img align="right" src="Pictures/d157e4ba-e218-4f01-a6e0-9629717ed725.webp" width="200">
+    <img class="left-image" src="Pictures/Dvar.png" width="200" >
         </td>
-
-            <td width="20px">
-
-            </td>
 
         <td>
 <h1>Tanach in numbers  - פרפראות לתורה</h1>
 <i>To use:</i>
             <ol>
-<li> Provide a word or phrase <i>in Hebrew</i>.
-<li> Select (or enter) an underlying text to search for expressions with the same gemmatria value.</li>
-<li> Choose desired expressions and click on "Generate Dvar Torah" to create an appropriate speech. </li>
+<li> <span class="emphasis" >Provide</span> a word or phrase <i>in Hebrew</i>.
+<li> <span class="emphasis" >Select</span> (or enter) a text to search common gemmatria values.</li>
+<li> <span class="emphasis" >Choose</span> desired expressions <span class="emphasis" >Generate Dvar Torah</span> to create an appropriate speech. </li>
             </ol>
         </td>
+            <td>
+                <img class="right-image"  src="Pictures/d157e4ba-e218-4f01-a6e0-9629717ed725.webp" width="200">
+            </td>
         </tr>
     </table>
 </div>
@@ -69,7 +67,7 @@
         </td>
 
 <td align="right">
-    Please select phrases to use in the <i>Dvar Torah</i>:   <input type="button" value="Select All!" ONCLICK="return selectAllPhrases();"></input>
+    Please select (multiple) phrases to use in the <i>Dvar Torah</i>:   <input type="button" value="Select All!" ONCLICK="return selectAllPhrases();"></input>
 <SELECT ID="found" multiple></SELECT>
 </td>
     </tr>
@@ -79,10 +77,18 @@
 
 <h2>3.  Generate!</h2>
 <center>
-<input Type="BUTTON" VALUE="Generate Dvar Torah" ONCLICK="return createPrompt();"></INPUT>
+    <form action="https://ipsit.bu.edu/generic/gemini.pl" method="post" target="_dvar">
+        <input type="hidden" name="key" value="31415"></input>
+        <input type="hidden" id="prompt" name="prompt"></input>
+<input Type="submit" VALUE="Generate Dvar Torah" ONCLICK="return createPrompt();"></INPUT>
+    </form>
 </center>
 
 <hr>
+תְּקוּפוֹת וְגִימַטְרִיאוֹת, פַּרְפְּרָאוֹת לַחָכְמָה“ - אבות ג:יח”
+<br>
 <i>Tanach texts courtesy of https://tanach.us</i>
+<br>
+by Menshi Trachtenberg, with help from the Trachtenberg family
 </body>
 </html>
