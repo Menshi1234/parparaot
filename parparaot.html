@@ -24,8 +24,8 @@
 <i>To use:</i>
             <ol>
 <li> Provide a word or phrase <i>in Hebrew</i>.
-<li> Select (or enter) an underlying text to search for phrases with the same gemmatria value.</li>
-<li> Click on "Generate Dvar Torah" to create an appropriate speech. </li>
+<li> Select (or enter) an underlying text to search for expressions with the same gemmatria value.</li>
+<li> Choose desired expressions and click on "Generate Dvar Torah" to create an appropriate speech. </li>
             </ol>
         </td>
         </tr>
@@ -68,7 +68,8 @@
         </td>
 
 <td align="right">
-<TEXTAREA ID="found"></TEXTAREA>
+    Please select phrases to use in the <i>Dvar Torah</i>:   <input type="button" value="Select All!" ONCLICK="return selectAllPhrases();"></input>
+<SELECT ID="found" multiple></SELECT>
 </td>
     </tr>
     <tr><td colspan="2" align="center"><INPUT TYPE="BUTTON" VALUE="Find Gematria Words" ONCLICK="return doCountText();"></INPUT></td></tr>

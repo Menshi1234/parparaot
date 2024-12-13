@@ -63,7 +63,12 @@ function countText(user_text, gematria) {
                 if (gematria == 0) {
                     if(!map2.has(tempPhrase)){
                         map2.set(tempPhrase, x);
-                        output.value += tempPhrase + "\n"; // record the temporary phrase
+
+                        // record the temporary phrase as an option to the #found select
+                        const option = document.createElement("option");
+                        option.value=option.textContent=tempPhrase;
+                        output.appendChild(option);
+
                     }
                     gematria = originalGematria;
                     break;
@@ -75,14 +80,27 @@ function countText(user_text, gematria) {
         }
         words2 = words2.slice(1);
     }
+
+    if (output.options.length==0) {
+        alert("No phrases were found with the same gematria.  Please try again!");
+    }
 }
 
-function doCountText() {
+// select all phrases that were found by the gematria search
+function selectAllPhrases() {
+    let output = document.getElementById("found");
+    for (let option of output.options) {
+        option.selected=true;
+    }
+}
+
+async function doCountText() {
     document.getElementById("loader").style.display = "block"; // show the loader
 
     let user_word = document.getElementById("word").value;
     let wordGematria = countGamatria(user_word);
-    document.getElementById("found").value = ""; // initialize
+    let foundResponse = document.getElementById("found");
+    foundResponse.innerHtml=""; // initialize
 
     let user_text = document.getElementById("text").value;
     countText(user_text, wordGematria);
@@ -116,21 +134,30 @@ function createPrompt(bestWords) {
     let user_word = document.getElementById("word").value;
 
     // get all Gemmatria equivalents
-    const options = document.getElementById("found").value;
-    const lines = options.split("\n"); // the number of gematriot found
-    const filteredLines = lines.filter(line=>line.trim() != "");
-    if (filteredLines===0) { // no gematria options
-        alert("No gematria equivalents were found!  Please 'Find Gematria Words' first.");
+    // const options = document.getElementById("found").value;
+    // const lines = options.split("\n"); // the number of gematriot found
+    // const filteredLines = lines.filter(line=>line.trim() != "");
+    // if (filteredLines===0) { // no gematria options
+    //     alert("No gematria equivalents were found!  Please 'Find Gematria Words' first.");
+    //     return;
+    // }
+    // //const randomIndex = Math.floor(Math.random() * filteredLines.length); // random choice
+    // //const randomIndex = Math.floor(Math.random() * filteredLines.length); // random choice
+    // choseGematria = filteredLines[0];
+    // for(let x = 1; x<filteredLines.length-1; x++){
+    //     choseGematria += ", "+filteredLines[x]; // the line itself
+    // }
+    let choseGematria="";
+    const foundItems = document.getElementById("found");
+    if (foundItems.length==0) {
+        alert("No gematria equivalents were found!  Please 'Find Gematria' with a different phrase.");
         return;
     }
-    //const randomIndex = Math.floor(Math.random() * filteredLines.length); // random choice
-    //const randomIndex = Math.floor(Math.random() * filteredLines.length); // random choice
-    choseGematria = filteredLines[0];
-    for(let x = 1; x<filteredLines.length-1; x++){
-        choseGematria += ", "+filteredLines[x]; // the line itself
+    for (let option of foundItems.options) {
+        if (option.selected) {
+            choseGematria +=(choseGematria==="")? option.textContent:", "+option.textContent;
+        }
     }
-
-    //alert("Creating a Dvar Torah connecting "+user_word+ " with "+ choseGematria);
 
     let prompt = "Please provide a Dvar Torah using the fact that" +
         "the phrase "+user_word+" has the same gematria as the following phrases " + choseGematria+
