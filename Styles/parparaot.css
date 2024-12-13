@@ -27,7 +27,7 @@ html {
 
 #fileSelect {
     color: red;
-    horiz align: right;
+    horiz-align: right;
 }
 
 h2, h3 {
