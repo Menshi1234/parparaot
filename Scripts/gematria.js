@@ -169,6 +169,6 @@ function wordChanged() {
   let found = document.getElementById("found");
   let gematria = document.getElementById("number");
 
-  found.value="";
+  found.innerHTML="";
   gematria.value = countGematria(user_word);
 }
