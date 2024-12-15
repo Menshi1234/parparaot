@@ -35,12 +35,12 @@
 <H2>
     1.  Provide a word or phrase <i>in Hebrew</i>:
 </H2>
-<INPUT ID="word"></INPUT>
+<INPUT ID="word" onchange="return document.getElementById('found').value=''"></INPUT>
 <hr>
 <H2>
     2.  Choose an underlying text:
 </H2>
-<div id="loader"> </div>
+<div id="loader"><!--input id="percent" value="" size="5" disabled--> </div>
 <table ID="main">
     <tr>
         <th>Existing source:</th>
