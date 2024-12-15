@@ -174,10 +174,13 @@ function createPrompt() {
         }
     }
 
-    let thePrompt = "Please provide a Dvar Torah using the fact that" +
+    let selectDvar = document.getElementById("dvarType");
+    let dvarTypeText = selectDvar.options[selectDvar.selectedIndex].value;
+    let thePrompt = "Please provide a "+dvarTypeText+" Dvar Torah using the fact that " +
         "the phrase "+user_word+" has the same gematria as the following phrases " + choseGematria+
         ".  Please use whichever of these phrases that suit your needs.";
     thePrompt = thePrompt.substring(0,MAX_PROMPT);
+    alert(thePrompt);
     document.getElementById("prompt").value=thePrompt;
     // window.open("https://ipsit.bu.edu/generic/gemini.pl?key=31415&prompt="
     //     +(prompt));
