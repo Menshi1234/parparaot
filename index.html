@@ -1,9 +1,118 @@
-<!DOCTYPE html>
 <html>
 <head>
-    <meta http-equiv="refresh" content="5;url=parparaot.html">
+    <meta charset="UTF-8">
+    <title>Tanach in Numbers</title>
+
+    <link rel="stylesheet" href="Styles/parparaot.css"></link>
+    <script src="Scripts/gematria.js"></script>
 </head>
 <body>
-    <p>You are being redirected. If not, click <a href="parparaot.html">here</a>.</p>
+<div id="title">
+    <table>
+        <tr>
+
+            <td>
+                <img class="left-image" src="Pictures/Dvar.png" width="200" >
+            </td>
+
+            <td>
+                <h1>Tanach in numbers  - פרפראות לתורה</h1>
+                <i>To use:</i>
+                <ol>
+                    <li> <span class="emphasis" >Provide</span> a word or phrase <i>in Hebrew</i>.
+                    <li> <span class="emphasis" >Select</span> (or enter) a text to search common gemmatria values.</li>
+                    <li> <span class="emphasis" >Choose</span> desired expression(s), using Ctrl (Windows/Linux) or Cmd (Mac).</li>
+                    <li><span class="emphasis" >Generate Dvar Torah</span> to create an appropriate speech(after choosing the type od dvar torah desired). </li>
+                </ol>
+            </td>
+            <td>
+                <img class="right-image"  src="Pictures/d157e4ba-e218-4f01-a6e0-9629717ed725.webp" width="200">
+            </td>
+        </tr>
+    </table>
+</div>
+
+<HR></HR>
+<H2>
+    1.  Provide a word or phrase <i>in Hebrew</i>:
+</H2>
+<INPUT ID="word" onchange="return wordChanged();"></INPUT>
+&nbsp;&nbsp;
+<i>Gematria=</i><INPUT ID="number" disabled></INPUT>
+<hr>
+<H2>
+    2.  Choose an underlying text:
+</H2>
+<div id="loader"><!--input id="percent" value="" size="5" disabled--> </div>
+<table ID="main">
+    <tr>
+        <th>Existing source:</th>
+        <th>Found:</th>
+    </tr>
+    <tr>
+        <td align="right">
+            <select id="fileSelect" onchange="return loadFile(this);">
+                <option value="">-- Select a file --</option>
+                <option value="Bereshit.txt">בראשית</option>
+                <option value="Shmot.txt">שמות</option>
+                <option value="Vayikra.txt">ויקרא</option>
+                <option value="Bamidbar.txt">במדבר</option>
+                <option value="Dvarim.txt">דברים</option>
+                <option value="Torah.txt">תורה</option>
+                <option value="Neviim.txt">נביאים</option>
+                <option value="Ktuvim.txt">כתובים</option>
+            </select>
+
+            <BR>
+
+            <TEXTAREA ID="text" COLS="60" ROWS="10"></TEXTAREA>
+
+        </td>
+
+        <td align="right">
+            Please select (multiple) phrases to use in the <i>Dvar Torah</i>:   <input type="button" value="Select All!" ONCLICK="return selectAllPhrases();"></input>
+            <SELECT ID="found" multiple></SELECT>
+        </td>
+    </tr>
+    <tr><td colspan="2" align="center"><INPUT TYPE="BUTTON" VALUE="Find Gematria Equivalents" ONCLICK="return doCountText();"></INPUT></td></tr>
+</table>
+<hr>
+
+<h2>3.  Generate!</h2>
+<center>
+    Style:
+    <select id="dvarType">
+        <option value="" selected>plain</option>
+        <option value="very serious and rabbinic">serious</option>
+        <option value="ridiculously funny ">funny</option>
+        <option value="very insparational for a Jew ">inspirational</option>
+        <option value="very deep, using at least three quotes from Tanach">deep</option>
+        <option value="story-based">story-based</option>
+        <option value="Israeli-soldier style">Israeli soldier</option>
+        <option value="current event related">current event</option>
+    </select>
+
+    &nbsp; Length:
+    <select id="dvarLength">
+        <option value="" selected>normal</option>
+        <option value="short">Short</option>
+        <option value="long">Long</option>
+        <option value="very long">Very long</option>
+    </select>
+
+    <form action="https://ipsit.bu.edu/generic/gemini.pl" method="post" target="_dvar">
+        <input type="hidden" name="key" value="31415"></input>
+        <input type="hidden" id="prompt" name="prompt"></input>
+        <input Type="submit" VALUE="Generate Dvar Torah" ONCLICK="return createPrompt();"></INPUT>
+    </form>
+</center>
+
+
+<hr>
+תְּקוּפוֹת וְגִימַטְרִיאוֹת, פַּרְפְּרָאוֹת לַחָכְמָה“ - אבות ג:יח”
+<br>
+<i>Tanach texts courtesy of https://tanach.us</i>
+<br>
+by Menshi Trachtenberg, with help from the Trachtenberg family and ChatGPT.
 </body>
 </html>

@@ -152,9 +152,12 @@ function createPrompt() {
      }
 
 
-    let selectDvar = document.getElementById("dvarType");
-    let dvarTypeText = selectDvar.options[selectDvar.selectedIndex].value;
-    let thePrompt = "Please provide a "+dvarTypeText+" Dvar Torah using the fact that " +
+    let dvarType = document.getElementById("dvarType");
+    let dvarTypeText = dvarType.options[dvarType.selectedIndex].value;
+    let dvarLength = document.getElementById("dvarLength");
+    let dvarLengthText = dvarLength.options[dvarLength.selectedIndex].value;
+
+    let thePrompt = "Please provide a "+dvarLengthText+" "+dvarTypeText+" Dvar Torah using the fact that " +
         "the phrase "+user_word+" has the same gematria as the following phrases " + choseGematria+
         ".  Please use whichever of these phrases that suit your needs.";
     thePrompt = thePrompt.substring(0,MAX_PROMPT);
