@@ -1,5 +1,6 @@
 // constants
 const MAX_PROMPT = 500; /** The maximum length of a prompt. */
+const SMALL_WAIT = 10; /** A small number of milliseconds to wait ... for the loader to update. */
 
 //This function turns any hebrew word into a gematria number
 function countGematria(user_word) {
@@ -67,7 +68,7 @@ function countGematria(user_word) {
 }
 
 // This function prompt the user to enter a text they want
-function countText(user_text, gematria) {
+async function countText(user_text, gematria) {
     const map2 = new Map();
     let output = document.getElementById("found");
     let originalGematria = gematria;
@@ -75,7 +76,13 @@ function countText(user_text, gematria) {
     let x = 0;
     for (let i = 0; i < words2.length; i++) {
         let tempPhrase = ""; // the phrase I am constructing right now
+        if (i%1000==0) {
+            await new Promise((resolve) => {
+                setTimeout(resolve, SMALL_WAIT);
+                // document.getElementById("percent").value=Math.round(100* i/words2.length)+"%";
+            }); // pause the computation to let the spiner show
 
+        }
         for (const word of words2) {
             if (gematria >= countGematria(word)) {
                 let wordGematria = countGematria(word);
@@ -124,7 +131,7 @@ async function doCountText() {
     foundResponse.innerHtml=""; // initialize
 
     let user_text = document.getElementById("text").value;
-    countText(user_text, wordGematria);
+    await countText(user_text, wordGematria);
 
     document.getElementById("loader").style.display = "none"; // hide the loader
 }
@@ -135,7 +142,7 @@ async function loadFile(selectElement) {
     const fileName = selectElement.value; // Get the selected file name
     if (fileName) {
         try {
-            const response = await fetch("Texts/" + fileName); // Fetch the file
+            const response = await fetch("Texts/" + fileName);
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
@@ -143,7 +150,7 @@ async function loadFile(selectElement) {
             document.getElementById("text").value = await response.text(); // Read file content as a string
         } catch (error) {
             console.error('Error loading file:', error);
-            document.getElementById('output').innerText = "Error loading file.";
+            alert("Error loading file.");
         }
     }
 
