@@ -180,7 +180,6 @@ function createPrompt() {
         "the phrase "+user_word+" has the same gematria as the following phrases " + choseGematria+
         ".  Please use whichever of these phrases that suit your needs.";
     thePrompt = thePrompt.substring(0,MAX_PROMPT);
-    alert(thePrompt);
     document.getElementById("prompt").value=thePrompt;
     // window.open("https://ipsit.bu.edu/generic/gemini.pl?key=31415&prompt="
     //     +(prompt));
