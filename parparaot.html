@@ -21,7 +21,8 @@
             <ol>
 <li> <span class="emphasis" >Provide</span> a word or phrase <i>in Hebrew</i>.
 <li> <span class="emphasis" >Select</span> (or enter) a text to search common gemmatria values.</li>
-<li> <span class="emphasis" >Choose</span> desired expressions <span class="emphasis" >Generate Dvar Torah</span> to create an appropriate speech. </li>
+<li> <span class="emphasis" >Choose</span> desired expression(s), using Ctrl (Windows/Linux) or Cmd (Mac).</li>
+ <li><span class="emphasis" >Generate Dvar Torah</span> to create an appropriate speech(after choosing the type od dvar torah desired). </li>
             </ol>
         </td>
             <td>
@@ -35,7 +36,9 @@
 <H2>
     1.  Provide a word or phrase <i>in Hebrew</i>:
 </H2>
-<INPUT ID="word" onchange="return document.getElementById('found').value=''"></INPUT>
+<INPUT ID="word" onchange="return wordChanged();"></INPUT>
+&nbsp;&nbsp;
+  <i>Gematria=</i><INPUT ID="number" disabled></INPUT>
 <hr>
 <H2>
     2.  Choose an underlying text:
@@ -86,7 +89,7 @@
         <option value="very in depth, using at least three quotes from tanach  ">In depth</option>
         <option value="story based  ">Story-Based</option>
         <option value=", in the words of a israeli soldier  ">Style of a Israeli soldier</option>
-        //<option value="current event related page long">Current event related</option>
+        <option value="current event related, that is a long">Current event related</option>
     </select>
 
     <form action="https://ipsit.bu.edu/generic/gemini.pl" method="post" target="_dvar">

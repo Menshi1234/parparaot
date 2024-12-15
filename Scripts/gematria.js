@@ -5,32 +5,6 @@ const SMALL_WAIT = 10; /** A small number of milliseconds to wait ... for the lo
 //This function turns any hebrew word into a gematria number
 function countGematria(user_word) {
     const map = new Map();
-      map.set("a", 1);
-        map.set("b", 2);
-        map.set("c", 3);
-        map.set("d", 4);
-        map.set("e", 5);
-        map.set("f", 6);
-        map.set("g", 7);
-        map.set("h", 8);
-        map.set("i", 9);
-        map.set("j", 10);
-        map.set("k", 20);
-        map.set("l", 30);
-        map.set("m", 40);
-        map.set("n", 50);
-        map.set("o", 60);
-        map.set("p", 70);
-        map.set("q", 80);
-        map.set("r", 90);
-        map.set("s", 100);       map.set(" ", 0);
-        map.set("t", 200);
-        map.set("u", 300);     map.set(" ", 0);
-        map.set("v", 400);
-        map.set("w", 500);
-        map.set("x", 600);
-        map.set("y", 700);
-        map.set("z", 800);
     map.set("א", 1);
     map.set("ב", 2);
     map.set("ג",3);
@@ -60,7 +34,9 @@ function countGematria(user_word) {
     map.set("ת", 400);
     let gematria = 0;
     for (const letter of user_word) {
-        gematria += map.get(letter);
+        if (map.has(letter)) {
+            gematria += map.get(letter);
+        }
     }
 
     //console.log(user_word + " --> "+gematria);
@@ -164,15 +140,17 @@ function createPrompt() {
     // get all Gemmatria equivalents
     let choseGematria="";
     const foundItems = document.getElementById("found");
-    if (foundItems.length===0) {
-        alert("No gematria equivalents were found!  Please 'Find Gematria' with a different phrase.");
-        return;
-    }
+
     for (let option of foundItems.options) {
         if (option.selected) {
             choseGematria +=(choseGematria==="")? option.textContent:", "+option.textContent;
         }
     }
+     if (foundItems.length===0 || choseGematria.trim()==="") {
+            alert("No gematria equivalents were found!  Please 'Find Gematria' with a different phrase.");
+            return false;
+     }
+
 
     let selectDvar = document.getElementById("dvarType");
     let dvarTypeText = selectDvar.options[selectDvar.selectedIndex].value;
@@ -181,6 +159,13 @@ function createPrompt() {
         ".  Please use whichever of these phrases that suit your needs.";
     thePrompt = thePrompt.substring(0,MAX_PROMPT);
     document.getElementById("prompt").value=thePrompt;
-    // window.open("https://ipsit.bu.edu/generic/gemini.pl?key=31415&prompt="
-    //     +(prompt));
+}
+
+function wordChanged() {
+ let user_word = document.getElementById("word").value;
+  let found = document.getElementById("found");
+  let gematria = document.getElementById("number");
+
+  found.value="";
+  gematria.value = countGematria(user_word);
 }
